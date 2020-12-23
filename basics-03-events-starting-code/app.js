@@ -5,11 +5,8 @@ const app = Vue.createApp({
     };
   },
   methods: {
-    onAddClicked() {
-      this.counter++
-    },
-    onReduceClicked(){
-      this.counter--
+    reduce(num){
+      this.counter+=num
     }
   }
 });
