@@ -23,8 +23,21 @@
       <button v-on:click="reduce(-1)">Remove</button>
       <button v-on:click="reduce(-5)">Remove 5</button>
       <p>Result: {{ counter }}</p>
-      <input type ="text" v-on:input="setName"/>
-      <p>Your Name : {{name}}</p>
+<!--      one way to bind input-->
+      <input type ="text" v-bind:value="name" v-on:input="setName"/>
+      <hr>
+<!--      simple and vue way to bind input-->
+      <input type ="text" v-model="name"/>
+      <hr>
+      <button v-on:click="resetInput">Reset Input</button>
+<!--      Logic in html-->
+      <p>Your Name (Computed inside html) : {{name + ' ' + 'LastName'}}</p>
+<!--      rerenders every time-->
+      <p>Your Name (Runs everytime anything on site changes: {{outputFullName()}}</p>
+      <!--      full name computed property-->
+      <p>Your Name (Computed property): {{fullname}}</p>
+      <!--      full name computed property-->
+      <p>Your Name (full name with watcher): {{fullNameData}}</p>
       <form v-on:submit.prevent="submitForm">
         <input type="text"/>
         <button>Sign Up</button>
