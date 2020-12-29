@@ -2,14 +2,14 @@
   <li class="product">
     <div class="product__data">
       <div class="product__image">
-        <img :src="image" :alt="title" />
+        <img :src="product.image" :alt="product.title" />
       </div>
       <div class="product__text">
-        <h3>{{ title }}</h3>
+        <h3>{{ product.title }}</h3>
         <base-badge mode="highlight" :no-margin-left="true">
-          <h4>${{ price }}</h4>
+          <h4>${{ product.price }}</h4>
         </base-badge>
-        <p>{{ description }}</p>
+        <p>{{ product.description }}</p>
       </div>
     </div>
     <div class="product__actions">
@@ -19,16 +19,25 @@
 </template>
 
 <script>
-export default {
-  inject: ['addProductToCart'],
-  props: ['id', 'image', 'title', 'price', 'description'],
+import { mapActions } from 'vuex';
+
+export default {  props: ['id'],
+  computed: {
+    // ...mapGetters('products', ['getProductById']),
+    product(){
+      console.log(this)
+      console.log(this.id);
+      return this.$store.getters['products/getProductById'](this.id);
+    }
+  },
   methods: {
+    ...mapActions('cart', ['addProductToCart']),
     addToCart() {
       this.addProductToCart({
-        id: this.id,
-        image: this.image,
-        title: this.title,
-        price: this.price,
+        id: this.product.id,
+        image: this.product.image,
+        title: this.product.title,
+        price: this.product.price,
       });
     },
   },
